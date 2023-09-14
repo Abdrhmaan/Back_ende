@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url       = "file:./xaan.db"
+}
+
+model User {
+   id        Int      @id @default(autoincrement())
+   name    String
+   email   String
+   password  Int
+   restrunt Restrunt[]
+
+}
+
+model Restrunt {
+    id        Int      @id @default(autoincrement())
+   name    String
+   location   String
+   food      String
+   created DateTime @default(now())
+  updated DateTime @default(now())
+     user    User    @relation(fields: [authorId], references: [id])
+
+     authorId Int
+     rating Rating[]
+
+
+}
+
+
+model Rating {
+    id        Int      @id @default(autoincrement())
+   name    String
+   location String
+
+   created DateTime @default(now())
+  updated DateTime @default(now())
+    restuntr    Restrunt    @relation(fields: [restruntId], references: [id])
+    restruntId Int
+ 
+}
